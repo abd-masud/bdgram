@@ -3,14 +3,12 @@ import { compare, hash } from 'bcryptjs';
 import { NextRequest, NextResponse } from 'next/server';
 import { RowDataPacket } from 'mysql2';
 
-// ✅ Global CORS headers
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-// ✅ Handle preflight requests
 export async function OPTIONS() {
     return new NextResponse(null, {
         status: 204,
@@ -18,7 +16,6 @@ export async function OPTIONS() {
     });
 }
 
-// ✅ Password change logic
 export async function POST(request: NextRequest) {
     try {
         const requestBody = await request.json();

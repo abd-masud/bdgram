@@ -3,14 +3,12 @@ import { connectionToDatabase } from "@/util/db";
 import crypto from "crypto";
 import { RowDataPacket } from "mysql2";
 
-// ✅ Default CORS headers
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-// ✅ Handle preflight CORS request
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,
@@ -18,7 +16,6 @@ export async function OPTIONS() {
   });
 }
 
-// ✅ Handle OTP verification
 export async function POST(req: Request) {
   try {
     const { otp, email } = await req.json();

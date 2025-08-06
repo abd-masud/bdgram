@@ -9,7 +9,6 @@ if (!SECRET_KEY) {
     throw new Error("SECRET_KEY is not defined in the environment variables.");
 }
 
-// Handle CORS for OPTIONS method
 export async function OPTIONS() {
     return new Response(null, {
         status: 204,

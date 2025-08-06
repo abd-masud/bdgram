@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectionToDatabase } from '@/util/db';
 import { ExistingUserResult, User } from '@/types/sign-up';
 
-// Default CORS headers
 function corsHeaders() {
     return {
         'Access-Control-Allow-Origin': '*',
@@ -13,7 +12,6 @@ function corsHeaders() {
     };
 }
 
-// Handle CORS preflight
 export async function OPTIONS() {
     return new NextResponse(null, {
         status: 204,
@@ -21,7 +19,6 @@ export async function OPTIONS() {
     });
 }
 
-// Register User
 export async function POST(request: NextRequest) {
     try {
         const { name, email, password } = await request.json();
@@ -36,7 +33,6 @@ export async function POST(request: NextRequest) {
         const hashedPassword = await hash(password, 10);
         const db = await connectionToDatabase();
 
-        // Check if email already exists
         const [existingUser] = await db.query<ExistingUserResult[]>(
             `SELECT COUNT(*) AS count FROM user WHERE email = ?`,
             [email]
@@ -66,7 +62,6 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        // Insert user
         const [result] = await db.query<ResultSetHeader>(
             `INSERT INTO user (user_id, name, email, password)
              VALUES (?, ?, ?, ?)`,
@@ -81,7 +76,7 @@ export async function POST(request: NextRequest) {
             {
                 success: true,
                 message: 'User registered successfully',
-                user_id, // return generated user_id
+                user_id,
             },
             { status: 201, headers: corsHeaders() }
         );
@@ -94,7 +89,6 @@ export async function POST(request: NextRequest) {
 }
 
 
-// Get All Users
 export async function GET() {
     try {
         const db = await connectionToDatabase();
@@ -109,7 +103,6 @@ export async function GET() {
     }
 }
 
-// Delete User
 export async function DELETE(request: NextRequest) {
     try {
         const { id } = await request.json();

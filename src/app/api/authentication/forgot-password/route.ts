@@ -52,9 +52,9 @@ export async function POST(req: NextRequest) {
     ]);
 
     const transporter = nodemailer.createTransport({
-      host: 'premium279.web-hosting.com',
-      port: 465,
-      secure: true,
+      host: 'premium900.web-hosting.com',
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,

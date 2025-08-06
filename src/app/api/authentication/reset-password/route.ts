@@ -3,14 +3,12 @@ import { runQuery } from "@/util/db";
 import { hash } from 'bcryptjs';
 import { User } from "@/types/context";
 
-// ✅ CORS headers for external access
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-// ✅ Handle CORS preflight
 export async function OPTIONS() {
     return new NextResponse(null, {
         status: 204,
@@ -18,7 +16,6 @@ export async function OPTIONS() {
     });
 }
 
-// ✅ Password reset logic with CORS
 export async function POST(req: Request) {
     try {
         const { newPassword, email } = await req.json();
